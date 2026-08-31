@@ -1,0 +1,57 @@
+
+<section>
+
+    <section id="philippe">
+        <h1 class="persona_title">Philippe, 73 ans, voit et entend mal</h1>
+        <div class="img-container stretch">
+            <img src="http://slides.anysurfer.be/reveal/img/filemon.png" alt="Philippe">
+        </div>
+    </section>
+
+    <section>
+        <blockquote>
+            <p>Ce que je déteste par dessus tout, ce sont les CAPTCHAs. L'autre jour j'ai voulu m'inscrire à une conférence. A la fin du formulaire, il y avait un code à recopier. Je n'y suis jamais arrivé. </p>
+        </blockquote>
+    </section>
+
+
+    <section>
+        <h2>CAPTCHA</h2>
+        <a href="http://audio.anysurfer.be/audiocaptcha_reCaptcha_truetwit.mp3"><img src="http://slides.anysurfer.be/reveal/img/captcha.jpg" alt="Screenshot CAPTCHA met tekst kill captcha, mp3 audiacaptcha Recaptcha"></a>
+        <aside class="notes">
+        <p>Le CAPTCHA est ici un mot déformé que Philippe doit recopier pour prouver qu'il n'est pas un robot. Mais comme il ne voit pas bien il n'arrive pas à recopier le mot. Parfois une alternative audio est prévue. Mais pour les personnes agées comme Philippe qui n'entendent pas bien, ce n'est pas une solution. Le CAPTCHA est là pour bloquer le SPAM mais il bloque de vraies personnes. </p>
+        </aside>
+    </section>
+
+    <section>
+        <h2>Google reCaptcha v2 (pas OK)</h2>
+        <img src="http://images.anysurfer.be/gijs/robot.png" alt="Google ReCAPTCHA checkbox I'm not a robot">
+        <aside class="notes">
+        <p>Ce Captcha a l'air plus accessible puisqu'il s'agit juste d'une case à cocher. Mais quand l'utilisateur coche la case, un algorithme essaie de déterminer si l'utilisateur est un humain ou un robot. Il arrive que l'algorithpme se trompe. Si l'algorithme pense que l'utilisateur est un robot, un autre captcha s'affiche, avec des images (voir slide suivant). </p>
+        </aside>
+    </section> 
+
+    <section>
+        <img src="https://images.anysurfer.be/captcha/recaptcha_feux.png" alt="Google recaptcha : identifier les feux de signalisation dans une grille de 16 images">
+        <aside class="notes">
+            <p>Philippe a du mal a identifier les photos. Pour lui ce captcha est bloquant. Il n'arrivera pas à envoyer le formulaire.  </p>
+        </aside>
+    </section> 
+
+    <!-- <section>
+        <h2>Un meilleur CAPTCHA</h2>
+        <img src="http://images.anysurfer.be/captcha/captcha_calcul_cirb2.png" alt="Captcha : combien font 4+4" class="stretch" />
+        <aside class="notes">
+            <p>Le mieux c'est de ne pas mettre de CAPTCHA du tout et d'utiliser une solution technique (anti-spam) qui est invisible pour les visiteurs du site (honeypot par exemple). Une autre option c'est de mettre une question simple comme dans l'exemple ci-dessus.  </p>
+        </aside>
+    </section> -->
+
+    <section>
+        <h2>Conseil</h2>
+        <p><a href="http://anysurfer.be/fr/en-pratique/sites-web/eviter-le-spam-sans-captcha">Évitez le SPAM sans CAPTCHA</a></p>
+        <aside class="notes">
+        <p>Si vous avez un problème de SPAM, il faut essayer de trouver une solution qui n'empèche pas de vrais visiteurs de vous contacter. Ce n'est pas simple mais il existe différentes solution, comme le honeypot (un champ caché que les vrais utilisateurs ne vont pas remplir), ou encore le fait de mesurer combien de temps s'écoule entre le chargement de la page et l'envoi du formulaire (si ça va très vite ce n'ets pas un vrai utilisateur) . En général ce sont les développeurs qui vont devoir implémenter cela.</p>
+        </aside>
+    </section>
+
+</section>

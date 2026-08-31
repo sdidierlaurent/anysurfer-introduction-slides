@@ -1,11 +1,30 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import 'reveal.js/reveal.css';
+import 'reveal.js/theme/simple.css';
+import '../assets/css/theme/anysurfer.css';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro';
+import Deck from '../components/Deck.astro'
 ---
 
 <Layout>
-	<Welcome />
+	<Deck />
 </Layout>
+
+<script>
+import Reveal from 'reveal.js';
+import highlight from 'reveal.js/plugin/highlight'; // ajouter CSS
+import notes from 'reveal.js/plugin/notes';
+
+	let deck = new Reveal({
+		plugins:[highlight,notes]
+	});
+	deck.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+		//theme ?
+		transition: 'slide' // none/fade/slide/convex/concave/zoom
+	});
+</script>
