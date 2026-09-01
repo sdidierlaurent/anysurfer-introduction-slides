@@ -1,10 +1,14 @@
+---
+import Captcha from '../assets/img/captcha.jpg';
+import Philippe from '../assets/img/filemon.png';
+---
 
 <section>
 
     <section id="philippe">
         <h1 class="persona_title">Philippe, 73 ans, voit et entend mal</h1>
         <div class="img-container stretch">
-            <img src="http://slides.anysurfer.be/reveal/img/filemon.png" alt="Philippe">
+            <img src={Philippe.src} alt="Philippe">
         </div>
     </section>
 
@@ -17,7 +21,7 @@
 
     <section>
         <h2>CAPTCHA</h2>
-        <a href="http://audio.anysurfer.be/audiocaptcha_reCaptcha_truetwit.mp3"><img src="http://slides.anysurfer.be/reveal/img/captcha.jpg" alt="Capture d'écran d'un CAPTCHA avec une alternative audio"></a>
+        <a href="https://audio.anysurfer.be/audiocaptcha_reCaptcha_truetwit.mp3"><img src={Captcha.src} alt="Capture d'écran d'un CAPTCHA avec une alternative audio"></a>
         <aside class="notes">
         <p>Le CAPTCHA est ici un mot déformé que Philippe doit recopier pour prouver qu'il n'est pas un robot. Mais comme il ne voit pas bien, il n'arrive pas à recopier le mot. Parfois, une alternative audio est prévue. Mais pour les personnes âgées comme Philippe qui n'entendent pas bien, ce n'est pas une solution. Le CAPTCHA est là pour bloquer le spam, mais il bloque de vraies personnes.</p>
         </aside>
@@ -25,7 +29,7 @@
 
     <section>
         <h2>Google reCAPTCHA v2 (pas OK)</h2>
-        <img src="http://images.anysurfer.be/gijs/robot.png" alt="Case à cocher « Je ne suis pas un robot » de Google reCAPTCHA">
+        <img src="https://images.anysurfer.be/gijs/robot.png" alt="Case à cocher « Je ne suis pas un robot » de Google reCAPTCHA">
         <aside class="notes">
         <p>Ce CAPTCHA a l'air plus accessible puisqu'il s'agit juste d'une case à cocher. Mais quand l'utilisateur coche la case, un algorithme essaie de déterminer si l'utilisateur est un humain ou un robot. Il arrive que l'algorithme se trompe. Si l'algorithme pense que l'utilisateur est un robot, un autre CAPTCHA s'affiche, avec des images (voir slide suivant).</p>
         </aside>
@@ -40,7 +44,7 @@
 
     <!-- <section>
         <h2>Un meilleur CAPTCHA</h2>
-        <img src="http://images.anysurfer.be/captcha/captcha_calcul_cirb2.png" alt="CAPTCHA : combien font 4 + 4 ?" class="stretch" />
+        <img src="https://images.anysurfer.be/captcha/captcha_calcul_cirb2.png" alt="CAPTCHA : combien font 4 + 4 ?" class="stretch" />
         <aside class="notes">
             <p>Le mieux, c'est de ne pas mettre de CAPTCHA du tout et d'utiliser une solution technique (anti-spam) qui est invisible pour les visiteurs du site (honeypot, par exemple). Une autre option, c'est de mettre une question simple comme dans l'exemple ci-dessus.</p>
         </aside>

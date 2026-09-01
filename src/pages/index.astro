@@ -5,7 +5,7 @@ import '../assets/css/theme/anysurfer.css';
 import '../assets/css/theme/anysurfer-wave.css';
 
 import Layout from '../layouts/Layout.astro';
-import Deck from '../components/Deck.astro'
+import Deck from '../components/Deck.astro';
 ---
 
 <Layout>
@@ -14,19 +14,21 @@ import Deck from '../components/Deck.astro'
 
 <script>
 import Reveal from 'reveal.js';
-import highlight from 'reveal.js/plugin/highlight'; // ajouter CSS
+import highlight from 'reveal.js/plugin/highlight';
 import notes from 'reveal.js/plugin/notes';
+import initAnySurferWave from '../assets/script/anysurfer-wave.js';
 
-	let deck = new Reveal({
-		plugins:[highlight,notes]
+	const deck = new Reveal({
+		plugins: [highlight, notes]
 	});
+
 	deck.initialize({
-		controls: true,
+		controls: false,
 		progress: true,
 		history: true,
 		center: true,
-		//theme ?
 		transition: 'slide' // none/fade/slide/convex/concave/zoom
+	}).then(() => {
+		initAnySurferWave(deck);
 	});
 </script>
-<script src="/src/assets/script/anysurfer-wave.js"></script>

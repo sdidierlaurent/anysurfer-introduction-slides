@@ -7,14 +7,6 @@
 	overflow:hidden;
 }
 
-.reveal ul li.ok {
-	list-style-image: url("../../img/pre_ok.png");
-}
-
-.reveal ul li.nok {
-	list-style-image: url("../../img/pre_nok.png");
-}
-
 .reveal table {
     border-collapse: collapse;
 }

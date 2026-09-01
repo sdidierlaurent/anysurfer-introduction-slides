@@ -1,7 +1,6 @@
-(function () {
+export default function initAnySurferWave(RevealAPI) {
   "use strict";
 
-  var RevealAPI = window.Reveal;
   var revealElement = document.querySelector(".reveal");
 
   if (!RevealAPI || !revealElement) {
@@ -12,20 +11,6 @@
   /* Évite une double insertion du module. */
   if (revealElement.querySelector(".as-navigation-dock")) {
     return;
-  }
-
-  function createBackground() {
-    var background = document.createElement("div");
-
-    background.className = "as-wave-background";
-    background.setAttribute("aria-hidden", "true");
-
-    background.innerHTML =
-      '<span class="as-wave-background__top"></span>' +
-      '<span class="as-wave-background__bottom"></span>' +
-      '<span class="as-wave-background__sun"></span>';
-
-    revealElement.insertBefore(background, revealElement.firstChild);
   }
 
   function createDock() {
@@ -106,8 +91,6 @@
 
     return dock;
   }
-
-  createBackground();
 
   var dock = createDock();
 
@@ -322,4 +305,4 @@
      */
     updateDock(false);
   }
-})();
+}
