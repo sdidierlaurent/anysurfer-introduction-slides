@@ -21,6 +21,9 @@
   --as-control-border: rgba(0, 41, 67, 0.25);
   --as-control-shadow: rgba(0, 41, 67, 0.18);
   --as-focus: #006eb2;
+
+  /* reveal custom properties */ 
+  --r-heading-text-transform: none;
 }
 
 /*
