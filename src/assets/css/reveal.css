@@ -368,7 +368,7 @@ body {
  *********************************************/
 
 .reveal .controls {
-	display: none;
+	/* display: none; */
 	position: fixed;
 	width: 110px;
 	height: 110px;
