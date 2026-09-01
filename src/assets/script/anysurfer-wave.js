@@ -13,6 +13,16 @@ export default function initAnySurferWave(RevealAPI) {
     return;
   }
 
+  function removeBadAria() {
+    var StatusElement = revealElement.querySelector(".aria-status")
+    if (StatusElement) {
+      StatusElement.remove()
+    }
+    revealElement.removeAttribute('role')
+  }
+
+  removeBadAria()
+
   function createDock() {
     var dock = document.createElement("nav");
 
@@ -81,11 +91,7 @@ export default function initAnySurferWave(RevealAPI) {
           '<span aria-hidden="true">↓</span>' +
         '</button>' +
 
-      '</div>' +
-
-      '<p class="as-sr-only"' +
-      ' data-as-announcement' +
-      ' aria-live="polite"></p>';
+      '</div>'
 
     revealElement.appendChild(dock);
 
@@ -271,20 +277,6 @@ export default function initAnySurferWave(RevealAPI) {
     }
   }
 
-  function configureReveal() {
-    if (typeof RevealAPI.configure === "function") {
-      RevealAPI.configure({
-        controls: false,
-        keyboard: true,
-        touch: true
-      });
-    }
-
-    updateDock(false);
-  }
-
-  addRevealListener("ready", configureReveal);
-
   addRevealListener("slidechanged", function () {
     updateDock(true);
   });
@@ -293,12 +285,10 @@ export default function initAnySurferWave(RevealAPI) {
    * Le script peut être chargé après l’événement ready.
    */
   if (
-    (typeof RevealAPI.isReady === "function" &&
+    !(typeof RevealAPI.isReady === "function" &&
       RevealAPI.isReady()) ||
     revealElement.classList.contains("ready")
   ) {
-    configureReveal();
-  } else {
     /*
      * Permet déjà d’afficher correctement le dock pendant
      * que Reveal termine son initialisation.
