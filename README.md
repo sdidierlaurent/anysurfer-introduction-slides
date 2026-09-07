@@ -37,6 +37,12 @@ Le domaine IONOS doit pointer vers le dossier de destination choisi.
 Le chemin FTP et le chemin public sont distincts : un dossier FTP `./intro/`
 peut correspondre à la racine `/` du domaine.
 
+Utiliser `IONOS_FTP_SERVER_DIR=./` pour publier dans le dossier de connexion
+du compte SFTP. La valeur `/` est aussi interprétée comme `./` par le workflow,
+afin de ne pas créer les dossiers projet à la racine du serveur : avec
+`projet/stib`, la destination sera `./stib/`. Les autres chemins absolus
+restent inchangés et doivent correspondre à un dossier accessible en écriture.
+
 Le déploiement utilise **SFTP sur le port 22**, via `lftp`. FTPS est un autre
 protocole et ne fonctionne pas sur ce port. Les noms `IONOS_FTP_*` sont conservés
 pour réutiliser les secrets existants.
