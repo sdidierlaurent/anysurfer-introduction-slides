@@ -60,6 +60,6 @@ jobs:
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
           protocol: ${{ vars.IONOS_FTP_PROTOCOL || 'ftps' }}
-          port: ${{ vars.IONOS_FTP_PORT || '21' }}
+          port: ${{ vars.IONOS_FTP_PORT || '22' }}
           local-dir: ./dist/
           server-dir: ${{ vars.IONOS_FTP_SERVER_DIR }}
