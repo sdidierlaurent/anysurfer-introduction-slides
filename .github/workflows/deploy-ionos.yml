@@ -53,13 +53,45 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           BASE_PATH: ${{ vars.BASE_PATH }}
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.IONOS_FTP_SERVER }}
-          username: ${{ secrets.IONOS_FTP_USERNAME }}
-          password: ${{ secrets.IONOS_FTP_PASSWORD }}
-          protocol: ${{ vars.IONOS_FTP_PROTOCOL || 'ftps' }}
-          port: ${{ vars.IONOS_FTP_PORT || '21' }}
-          local-dir: ./dist/
-          server-dir: ${{ vars.IONOS_FTP_SERVER_DIR }}
+      - name: Install SFTP client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes lftp
+
+      - name: Deploy via SFTP
+        timeout-minutes: 15
+        env:
+          SFTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
+          SFTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+          SFTP_PORT: ${{ vars.IONOS_FTP_PORT || '22' }}
+          SFTP_SERVER_DIR: ${{ vars.IONOS_FTP_SERVER_DIR }}
+        shell: python
+        run: |
+          import os
+          import subprocess
+          from urllib.parse import quote
+
+          def lftp_quote(value):
+              if any(char in value for char in "\r\n\0"):
+                  raise ValueError("Invalid control character in deployment setting")
+              return '"' + value.replace('\\', '\\\\').replace('"', '\\"').replace('$', '\\$').replace('`', '\\`') + '"'
+
+          host = os.environ["SFTP_SERVER"]
+          if not host or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-" for c in host):
+              raise ValueError("IONOS_FTP_SERVER must be a hostname without protocol or path")
+          port = int(os.environ["SFTP_PORT"])
+          if not 1 <= port <= 65535:
+              raise ValueError("Invalid SFTP port")
+          username = quote(os.environ["SFTP_USERNAME"], safe="")
+          destination = lftp_quote(os.environ["SFTP_SERVER_DIR"])
+          commands = f"""
+          set cmd:fail-exit yes
+          set net:timeout 30
+          set net:max-retries 2
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=accept-new"
+          open --env-password sftp://{username}@{host}:{port}
+          mirror --reverse --verbose --no-perms ./dist/ {destination}
+          bye
+          """
+          subprocess.run(["lftp", "--norc"], input=commands, text=True, check=True)
