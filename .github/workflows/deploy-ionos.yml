@@ -51,6 +51,10 @@ jobs:
           BASE_PATH: ${{ vars.BASE_PATH }}
         shell: bash
         run: |
+          # Treat / as the account's login directory, not the SFTP server root.
+          if [[ "$FTP_SERVER_DIR" == / ]]; then
+            FTP_SERVER_DIR=./
+          fi
           if [[ "$GITHUB_REF_NAME" == projet/* ]]; then
             project="${GITHUB_REF_NAME#projet/}"
             if [[ ! "$project" =~ ^[a-zA-Z0-9][a-zA-Z0-9_-]*$ ]]; then
@@ -102,15 +106,26 @@ jobs:
           if not 1 <= port <= 65535:
               raise ValueError("Invalid SFTP port")
           username = quote(os.environ["SFTP_USERNAME"], safe="")
-          destination = lftp_quote(os.environ["SFTP_SERVER_DIR"])
+          # Some SFTP servers reject MKDIR with a trailing slash or return
+          # a generic Failure when the directory already exists.
+          destination = lftp_quote(os.environ["SFTP_SERVER_DIR"].rstrip("/") or "/")
           commands = f"""
           set cmd:fail-exit yes
+          set cmd:verify-path yes
+          set cmd:parallel 1
+          cache off
           set net:timeout 30
           set net:max-retries 2
           set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=accept-new"
           open --env-password sftp://{username}@{host}:{port}
-          mkdir -p {destination}
-          mirror --reverse --verbose --no-perms ./dist/ {destination}
+          mkdir -p {destination} || echo "Directory creation failed; checking whether the destination already exists."
+          cd {destination} || exit 20
+          mirror --reverse --verbose --no-perms ./dist/ ./
           bye
           """
-          subprocess.run(["lftp", "--norc"], input=commands, text=True, check=True)
+          result = subprocess.run(["lftp", "--norc"], input=commands, text=True)
+          if result.returncode == 20:
+              print("::error::SFTP destination could not be created or opened. Check IONOS_FTP_SERVER_DIR, the account's assigned directory and its permissions; also check whether a file has the project's name.")
+          elif result.returncode:
+              print("::error::SFTP deployment failed. See the lftp error above for connection or upload details.")
+          raise SystemExit(result.returncode)
