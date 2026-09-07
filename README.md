@@ -4,11 +4,20 @@
 - `.github/workflows/deploy-ionos.yml` construit le site et transfère `dist/`
   vers IONOS à chaque push sur `release` ou une branche `release/*`
   (par exemple `release/1.0`, y compris les sous-branches).
+- Ce même workflow déploie les branches `projet/*` dans un sous-dossier IONOS
+  portant le nom du projet, créé automatiquement si nécessaire.
+  Par exemple, `projet/sncb` publie dans `${IONOS_FTP_SERVER_DIR}sncb/`.
+  Le nom du projet doit commencer par une lettre ou un chiffre et ne contenir
+  que des lettres ASCII, chiffres, tirets ou underscores, sans sous-branche.
 
 Chaque workflow peut aussi être lancé manuellement sur ses branches autorisées.
 Les branches release publient toutes vers le même dossier IONOS, sans transferts
 simultanés. La configuration Astro adapte les URL à la cible : préfixe du dépôt
 pour GitHub Pages, `SITE_URL` et `BASE_PATH` pour IONOS.
+Pour les branches projet, le nom du projet est aussi ajouté à `BASE_PATH` :
+`projet/sncb` utilise `/sncb/` par défaut, ou `/intro/sncb/` si `BASE_PATH=/intro/`.
+Les déploiements release et projet partagent la même configuration et sont
+exécutés sans transferts simultanés.
 
 ## Configuration IONOS
 
@@ -30,48 +39,16 @@ peut correspondre à la racine `/` du domaine.
 
 Le déploiement utilise **SFTP sur le port 22**, via `lftp`. FTPS est un autre
 protocole et ne fonctionne pas sur ce port. Les noms `IONOS_FTP_*` sont conservés
-pour réutiliser les secrets existants. L’ancienne variable `IONOS_FTP_PROTOCOL`
-n’est plus utilisée et peut être supprimée.
+pour réutiliser les secrets existants.
 
 Le transfert ajoute et remplace les fichiers du build, sans supprimer les autres
-fichiers du serveur. L’ancien fichier `.ftp-deploy-sync-state.json` n’est plus utilisé.
-La clé SSH du serveur est acceptée à la première connexion du runner ; un changement
-pendant le job est refusé.
+fichiers du serveur.
 
 Les valeurs du fichier `.env` local ne sont pas transmises à GitHub Actions :
 configurer les secrets et variables dans les paramètres du dépôt.
 
-Documentation : [SFTP chez IONOS](https://www.ionos.fr/assistance/hebergement/configurer-et-gerer-lacces-ftp/transferer-des-fichiers-via-sftp-avec-filezilla/).
 
 # Astro Starter Kit: Basics
-
-```sh
-npm create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
 ## 🧞 Commands
 
@@ -83,9 +60,8 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
 
 ## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Feel free to check [our documentation](https://docs.astro.build).
