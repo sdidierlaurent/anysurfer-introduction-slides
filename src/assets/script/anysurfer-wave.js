@@ -202,7 +202,7 @@ export default function initAnySurferWave(RevealAPI) {
     nextSlideButton.disabled =
       totalSlides <= 1 || indices.v >= totalSlides - 1;
 
-    if (announceChange) {
+    if (announceChange && announcement) {
       var title = getCurrentTitle();
 
       announcement.textContent =
