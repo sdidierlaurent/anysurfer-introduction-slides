@@ -16,6 +16,10 @@
     "reveal.js": "^6.0.1"
   },
   "allowScripts": {
-    "esbuild": true
+    "esbuild": true,
+    "fsevents@2.3.3": true
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.0"
   }
 }
