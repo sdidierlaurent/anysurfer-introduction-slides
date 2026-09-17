@@ -1,9 +1,11 @@
 ---
-import Favicon from '../assets/favicon.png'
+import Favicon from '@assets/favicon.png'
+
+import Deck from '@components/Deck.astro'
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={Astro.currentLocale}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +14,9 @@ import Favicon from '../assets/favicon.png'
 		<title>Introduction à l'accessibilité numérique — AnySurfer</title>
 	</head>
 	<body>
-		<slot />
+		<Deck>
+			<slot />
+		</Deck>
 	</body>
 </html>
 

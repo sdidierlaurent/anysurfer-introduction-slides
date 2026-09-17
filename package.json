@@ -20,6 +20,7 @@
     "fsevents@2.3.3": true
   },
   "devDependencies": {
-    "@types/node": "^26.5.0"
+    "@types/node": "^26.5.0",
+    "unplugin-auto-import": "^21.1.0"
   }
 }
