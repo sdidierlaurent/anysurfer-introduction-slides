@@ -1,10 +1,13 @@
 ---
-    const title = 'Créer des documents accessibles avec Acrobat'
-
 	import Layout from '@layouts/LayoutSlides.astro'
+
+    const title = 'Créer des documents accessibles avec Acrobat'
 ---
 
-<Layout title="{title}">
+<Layout title={ title }>
+    <FrSharedInstructions />
+	<FrSharedLogo />
+
     <FrAcrobatIntro />
     <FrAcrobatTags />
     <FrAcrobatAcrobat />
