@@ -6,6 +6,8 @@ import '@assets/css/theme/anysurfer-wave.css'
 
 import Favicon from '@assets/favicon.png'
 import Deck from '@components/Deck.astro'
+
+const { title='Slides - Anysurfer' } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +17,7 @@ import Deck from '@components/Deck.astro'
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="shortcut icon" href={Favicon.src} type="image/x-icon" />
 		<meta name="color-scheme" content="light dark">
-		<title>Introduction à l'accessibilité numérique — AnySurfer</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<Deck>
